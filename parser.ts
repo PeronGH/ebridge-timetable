@@ -1,4 +1,4 @@
-import { HTMLDocument } from './mod.ts';
+import { HTMLDocument } from './deps.ts';
 
 const DAYS: Day[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 

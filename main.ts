@@ -1,4 +1,4 @@
-import { DOMParser } from './mod.ts';
+import { DOMParser } from './deps.ts';
 import { parseTimetable } from './parser.ts';
 
 const document = new DOMParser().parseFromString(
