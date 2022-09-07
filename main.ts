@@ -37,7 +37,6 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
     const duration = lesson.time.length * 30 * 60;
     const day = lesson.day;
     const beginTime = lesson.time[0].split(':').map(t => parseInt(t));
-    console.log(beginTime);
 
     const timeSinceMonday =
       (getDayCode(day) * 86400 + beginTime[0] * 3600 + beginTime[1] * 60) * 1e3;

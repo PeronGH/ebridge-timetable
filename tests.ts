@@ -1,7 +1,7 @@
 import { DOMParser, parseTimetable, genCalendar } from './mod.ts';
 
 Deno.test({
-  name: 'gen ics',
+  name: 'gen_ics',
   fn() {
     const document = new DOMParser().parseFromString(
       Deno.readTextFileSync('XJTLU e-Bridge.html').toString(),
@@ -10,7 +10,7 @@ Deno.test({
 
     const lessons = parseTimetable(document);
 
-    console.log(lessons);
+    console.table(lessons);
 
     const calendar = genCalendar(lessons);
 
