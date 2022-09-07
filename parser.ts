@@ -1,4 +1,4 @@
-import { HTMLDocument } from './deps.ts';
+import { HTMLDocument, Day } from './deps.ts';
 
 const DAYS: Day[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
@@ -65,5 +65,3 @@ export type Lesson = {
   day: Day;
   time: string[];
 };
-
-export type Day = 'MO' | 'TU' | 'WE' | 'TH' | 'FR' | 'SA' | 'SU';

@@ -1,4 +1,4 @@
-import { DOMParser } from './deps.ts';
+import { DOMParser, EventConfig } from './deps.ts';
 import { parseTimetable } from './parser.ts';
 
 const document = new DOMParser().parseFromString(
@@ -9,3 +9,7 @@ const document = new DOMParser().parseFromString(
 const lessons = parseTimetable(document);
 
 console.table(lessons);
+
+for (const title in lessons) {
+  const lesson = lessons[title];
+}
