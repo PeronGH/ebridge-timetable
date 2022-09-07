@@ -59,13 +59,13 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
 
     for (const weekDuration of weeks) {
       const firstMonday = getMondayOfWeek(weekDuration[0]);
-      const lastWeek = weekDuration[1];
 
       const rrule: RecurrenceRule = {
         freq: 'WEEKLY',
-        until: lastWeek
-          ? getMondayOfWeek(lastWeek + 1)
-          : new Date(firstMonday.getTime() + 86400 * 7e3),
+        until:
+          weekDuration.length >= 2
+            ? getMondayOfWeek(weekDuration[1] + 1)
+            : new Date(firstMonday.getTime() + 86400 * 7e3),
       };
 
       const cfg: EventConfig = {
