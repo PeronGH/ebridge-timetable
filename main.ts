@@ -1,5 +1,5 @@
-import { DOMParser } from 'https://deno.land/x/deno_dom@v0.1.34-alpha/deno-dom-wasm.ts';
-import { parseTimetable } from './mod.ts';
+import { DOMParser } from './mod.ts';
+import { parseTimetable } from './parser.ts';
 
 const document = new DOMParser().parseFromString(
   Deno.readTextFileSync('XJTLU e-Bridge.html').toString(),
@@ -7,7 +7,5 @@ const document = new DOMParser().parseFromString(
 )!;
 
 const lessons = parseTimetable(document);
-
-
 
 console.table(lessons);
