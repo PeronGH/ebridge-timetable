@@ -8,7 +8,7 @@ const getMondayOfWeek = (n: number) => {
   return new Date(year, month, (n - 1) * 7 + date);
 };
 
-export function generateICS(lessons: { [title: string]: Lesson }) {
+export function genCalendar(lessons: { [title: string]: Lesson }) {
   const events: Event[] = [];
 
   for (const title in lessons) {

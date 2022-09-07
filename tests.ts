@@ -1,4 +1,4 @@
-import { DOMParser, parseTimetable, generateICS } from './mod.ts';
+import { DOMParser, parseTimetable, genCalendar } from './mod.ts';
 
 Deno.test({
   name: 'gen ics',
@@ -10,6 +10,8 @@ Deno.test({
 
     const lessons = parseTimetable(document);
     console.table(lessons);
-    generateICS(lessons);
+    const calendar = genCalendar(lessons);
+
+    console.log(calendar.toString());
   },
 });
