@@ -14,6 +14,8 @@ Deno.test({
 
     const calendar = genCalendar(lessons);
 
+    console.log(calendar.toLines());
+
     Deno.writeTextFileSync('test.ics', calendar.toString());
   },
 });
