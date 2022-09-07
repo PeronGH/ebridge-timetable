@@ -11,19 +11,19 @@ const getMondayOfWeek = (n: number) => {
 const getDayCode = (day: Day) => {
   switch (day) {
     case 'MO':
-      return 1;
+      return 0;
     case 'TU':
-      return 2;
+      return 1;
     case 'WE':
-      return 3;
+      return 2;
     case 'TH':
-      return 4;
+      return 3;
     case 'FR':
-      return 5;
+      return 4;
     case 'SA':
-      return 6;
+      return 5;
     case 'SU':
-      return 7;
+      return 6;
   }
 };
 
@@ -37,6 +37,8 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
     const duration = lesson.time.length * 30 * 60;
     const day = lesson.day;
     const beginTime = lesson.time[0].split(':').map(t => parseInt(t));
+    console.log(beginTime);
+
     const timeSinceMonday =
       (getDayCode(day) * 86400 + beginTime[0] * 3600 + beginTime[1] * 60) * 1e3;
 
