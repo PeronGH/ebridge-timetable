@@ -10,7 +10,7 @@ const getMondayOfWeek = (n: number) => {
     return new Date(year, month, (n - 1) * 7 + date);
   } else {
     const [year, month, date] = WEEK5_FIRST_DAY;
-    return new Date(year, month, (n - 1) * 7 + date);
+    return new Date(year, month, (n - 5) * 7 + date);
   }
 };
 
@@ -43,6 +43,7 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
     const duration = lesson.time.length * 30 * 60;
     const day = lesson.day;
     const beginTime = lesson.time[0].split(':').map(t => parseInt(t));
+    // eg. [11:00, 11:30, 12:00] => [11,0]
 
     const timeSinceMonday =
       (getDayCode(day) * 86400 + beginTime[0] * 3600 + beginTime[1] * 60) * 1e3;
@@ -64,7 +65,10 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
         freq: 'WEEKLY',
         until:
           weekDuration.length >= 2
-            ? getMondayOfWeek(weekDuration[1] + 1)
+            ? new Date(
+                firstMonday.getTime() +
+                  86400 * 7e3 * (weekDuration[1] - weekDuration[0] + 1)
+              )
             : new Date(firstMonday.getTime() + 86400 * 7e3),
       };
 
