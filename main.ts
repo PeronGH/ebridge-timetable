@@ -1,11 +1,17 @@
 import { EventConfig, RecurrenceRule, Event, Calendar, Day } from './deps.ts';
 import { Lesson } from './parser.ts';
 
-const FIRST_DAY = [2022, 8, 5];
+const WEEK1_FIRST_DAY = [2022, 8, 5];
+const WEEK5_FIRST_DAY = [2022, 9, 10];
 
 const getMondayOfWeek = (n: number) => {
-  const [year, month, date] = FIRST_DAY;
-  return new Date(year, month, (n - 1) * 7 + date);
+  if (n < 5) {
+    const [year, month, date] = WEEK1_FIRST_DAY;
+    return new Date(year, month, (n - 1) * 7 + date);
+  } else {
+    const [year, month, date] = WEEK5_FIRST_DAY;
+    return new Date(year, month, (n - 1) * 7 + date);
+  }
 };
 
 const getDayCode = (day: Day) => {
@@ -56,9 +62,8 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
       const lastWeek = weekDuration[weekDuration.length - 1];
 
       const rrule: RecurrenceRule = {
-        freq: 'DAILY',
-        byDay: [day],
-        until: getMondayOfWeek(lastWeek + 1),
+        freq: 'WEEKLY',
+        until: new Date(firstMonday.getTime() + 86400 * 7e3),
       };
 
       const cfg: EventConfig = {
