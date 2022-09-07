@@ -78,6 +78,10 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
         desc,
         duration,
         rrule,
+        alarm: {
+          desc: `${title} will start in 30 minutes`,
+          advance: 30,
+        },
       };
 
       const evt = new Event(cfg);
