@@ -1,11 +1,30 @@
-import { EventConfig, RecurrenceRule, Event, Calendar } from './deps.ts';
+import { EventConfig, RecurrenceRule, Event, Calendar, Day } from './deps.ts';
 import { Lesson } from './parser.ts';
 
-const FIRST_DAY = [2022, 9, 6];
+const FIRST_DAY = [2022, 8, 5];
 
 const getMondayOfWeek = (n: number) => {
   const [year, month, date] = FIRST_DAY;
   return new Date(year, month, (n - 1) * 7 + date);
+};
+
+const getDayCode = (day: Day) => {
+  switch (day) {
+    case 'MO':
+      return 1;
+    case 'TU':
+      return 2;
+    case 'WE':
+      return 3;
+    case 'TH':
+      return 4;
+    case 'FR':
+      return 5;
+    case 'SA':
+      return 6;
+    case 'SU':
+      return 7;
+  }
 };
 
 export function genCalendar(lessons: { [title: string]: Lesson }) {
@@ -17,6 +36,9 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
     const desc = lesson.location;
     const duration = lesson.time.length * 30 * 60;
     const day = lesson.day;
+    const beginTime = lesson.time[0].split(':').map(t => parseInt(t));
+    const timeSinceMonday =
+      (getDayCode(day) * 86400 + beginTime[0] * 3600 + beginTime[1] * 60) * 1e3;
 
     const weeks = lesson.weeks
       .slice(5)
@@ -40,7 +62,7 @@ export function genCalendar(lessons: { [title: string]: Lesson }) {
 
       const cfg: EventConfig = {
         title,
-        beginDate: firstMonday,
+        beginDate: new Date(firstMonday.getTime() + timeSinceMonday),
         desc,
         duration,
         rrule,

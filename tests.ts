@@ -9,8 +9,11 @@ Deno.test({
     )!;
 
     const lessons = parseTimetable(document);
+
+    console.log(lessons);
+
     const calendar = genCalendar(lessons);
 
-    console.log(calendar.toString());
+    Deno.writeTextFileSync('test.ics', calendar.toString());
   },
 });

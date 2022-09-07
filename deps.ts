@@ -7,6 +7,6 @@ export type {
   EventConfig,
   Day,
   RecurrenceRule,
-} from 'https://deno.land/x/simple_ics@0.0.9/mod.ts';
+} from 'https://deno.land/x/simple_ics@0.0.10/mod.ts';
 
 export { Event, Calendar } from 'https://deno.land/x/simple_ics@0.0.9/mod.ts';
