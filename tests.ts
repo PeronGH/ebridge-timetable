@@ -9,7 +9,6 @@ Deno.test({
     )!;
 
     const lessons = parseTimetable(document);
-    console.table(lessons);
     const calendar = genCalendar(lessons);
 
     console.log(calendar.toString());
