@@ -1,15 +1,6 @@
 import { DOMParser, EventConfig } from './deps.ts';
 import { parseTimetable, Lesson } from './parser.ts';
 
-const document = new DOMParser().parseFromString(
-  Deno.readTextFileSync('XJTLU e-Bridge.html').toString(),
-  'text/html'
-)!;
-
-const lessons = parseTimetable(document);
-console.table(lessons);
-generateICS(lessons);
-
 export function generateICS(lessons: { [title: string]: Lesson }) {
   const events: EventConfig[] = [];
 
