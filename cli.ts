@@ -86,8 +86,13 @@ while (true) {
   } else if (command === 'help') {
     // Command: help
     console.log(help);
-  } else if (command.startsWith('day ')) {
+  } else if (command.startsWith('day ') || command === 'day') {
     // Command: day
+    if (command === 'day') {
+      console.log('Invalid usage of "day"');
+      continue;
+    }
+
     const newDay = command.split(/\s+/);
     const newDayId = parseInt(newDay[1]);
 
@@ -102,10 +107,16 @@ while (true) {
     const calendar = genCalendar(lessons);
 
     Deno.writeTextFileSync('./timetable.ics', calendar.toString());
-  } else if (command.startsWith('delete ')) {
+  } else if (command.startsWith('delete ') || command === 'delete') {
     // Command: delete
+    if (command === 'delete') {
+      console.log('Invalid usage of "delete"');
+      continue;
+    }
+
     const title = command.slice(7).trim();
-    delete lessons[title];
+    if (lessons[title]) delete lessons[title];
+    else console.log('Title not found');
   } else {
     console.log('Unknown command');
   }
