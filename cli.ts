@@ -66,7 +66,7 @@ while (true) {
     console.log('You can paste the class info now.');
 
     while (paste.length < 4) {
-      const input = prompt('paste:', '')!.trim();
+      const input = prompt('', '')!.trim();
       if (!input) continue;
       else paste.push(input);
     }
