@@ -1,6 +1,6 @@
 import { HTMLDocument, Day } from './deps.ts';
 
-const DAYS: Day[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+export const DAYS: Day[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 export function parseTimetable(document: HTMLDocument) {
   const lessonDict: { [title: string]: Lesson } = {};
