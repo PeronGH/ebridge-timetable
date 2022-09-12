@@ -56,7 +56,7 @@ while (true) {
 
     const time = [start];
 
-    let i = parseInt(duration) * 2;
+    let i = parseFloat(duration) * 2;
     while (--i) {
       time.push(nextTime(time[time.length - 1]));
     }
