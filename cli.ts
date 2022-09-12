@@ -10,7 +10,7 @@ show - Show the timetable
 help - Show this message
 day <num> - Set day of the week, 1 for monday (Default), and 7 for sunday
 finish - Generate timetable.ics file and exit
-delete <title> - Delete
+delete <title> - Delete the lesson entry of specified title
 `
   .split('\n')
   .filter(l => l.includes(' - '))
