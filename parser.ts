@@ -17,7 +17,11 @@ export function parseTimetable(document: HTMLDocument) {
       // First row (days of the week)
       for (const cell of rows[row_i].children) {
         const day = cell.textContent.trim().slice(0, 2).toUpperCase() as Day;
-        customDays.push(day);
+        const colSpan = cell.getAttribute('colspan') ?? '1';
+        let i = parseInt(colSpan);
+        do {
+          customDays.push(day);
+        } while (--i);
       }
     }
     // Walk through every row
