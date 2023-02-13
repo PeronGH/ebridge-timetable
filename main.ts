@@ -1,7 +1,7 @@
 import { EventConfig, RecurrenceRule, Event, Calendar, Day } from './deps.ts';
 import { Lesson } from './parser.ts';
 
-const WEEK1_FIRST_DAY = [2022, 8, 5];
+const WEEK1_FIRST_DAY = [2023, 1, 13];
 
 const getMondayOfWeek = (n: number) => {
     const [year, month, date] = WEEK1_FIRST_DAY;
