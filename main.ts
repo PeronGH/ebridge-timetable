@@ -2,16 +2,10 @@ import { EventConfig, RecurrenceRule, Event, Calendar, Day } from './deps.ts';
 import { Lesson } from './parser.ts';
 
 const WEEK1_FIRST_DAY = [2022, 8, 5];
-const WEEK5_FIRST_DAY = [2022, 9, 10];
 
 const getMondayOfWeek = (n: number) => {
-  if (n < 5) {
     const [year, month, date] = WEEK1_FIRST_DAY;
     return new Date(year, month, (n - 1) * 7 + date);
-  } else {
-    const [year, month, date] = WEEK5_FIRST_DAY;
-    return new Date(year, month, (n - 5) * 7 + date);
-  }
 };
 
 const getDayCode = (day: Day) => {
