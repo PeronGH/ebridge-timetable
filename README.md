@@ -15,3 +15,24 @@ or
 3. `deno run -A cli.ts`
 
 Tip: `control + C` to force quit cli
+
+### Advanced Usage
+
+```typescript
+import { DOMParser, genCalendar, parseTimetable } from "https://deno.land/x/ebridge_timetable_parser@1.1.2/mod.ts";
+
+const document = new DOMParser().parseFromString(
+  Deno.readTextFileSync('XJTLU e-Bridge.html').toString(),
+  'text/html'
+)!;
+
+const lessons = parseTimetable(document);
+
+console.table(lessons);
+
+const calendar = genCalendar(lessons);
+
+console.log(calendar.toLines());
+
+Deno.writeTextFileSync('test.ics', calendar.toString());
+```
