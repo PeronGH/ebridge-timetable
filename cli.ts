@@ -1,5 +1,5 @@
-import { Lesson, DAYS } from './parser.ts';
-import { genCalendar } from './mod.ts';
+import { DAYS, Lesson } from "./parser.ts";
+import { genCalendar } from "./mod.ts";
 
 const lessons: { [title: string]: Lesson } = {};
 let day = DAYS[0];
@@ -12,47 +12,47 @@ day <num> - Set day of the week, 1 for monday (Default), and 7 for sunday
 finish - Generate timetable.ics file and exit
 delete <title> - Delete the lesson entry of specified title
 `
-  .split('\n')
-  .filter(l => l.includes(' - '))
-  .map(l =>
+  .split("\n")
+  .filter((l) => l.includes(" - "))
+  .map((l) =>
     l
-      .split(' - ')
+      .split(" - ")
       .map((v, i) => {
-        if (i === 0) return v.padEnd(16, ' ');
+        if (i === 0) return v.padEnd(16, " ");
         else return v;
       })
-      .join('')
+      .join("")
   )
-  .join('\n');
+  .join("\n");
 
 const nextTime = (t: string) => {
-  const time = t.split(':').map(v => parseInt(v));
+  const time = t.split(":").map((v) => parseInt(v));
   const mapTime = (t: number[]) =>
-    t.map(v => v.toString().padStart(2, '0')).join(':');
+    t.map((v) => v.toString().padStart(2, "0")).join(":");
   if (time[1] === 0) {
     return mapTime([time[0], time[1] + 30]);
   } else if (time[1] === 30) {
     return mapTime([time[0] + 1, 0]);
   } else {
-    throw new Error('Invalid time');
+    throw new Error("Invalid time");
   }
 };
 
-console.log('Welcome to the interactive CLI of e-bridge Timetable parser');
-console.log('\n' + help + '\n');
+console.log("Welcome to the interactive CLI of e-bridge Timetable parser");
+console.log("\n" + help + "\n");
 
 while (true) {
-  const command = prompt('>', '')?.trim();
+  const command = prompt(">", "")?.trim();
   if (!command) continue;
 
   // Process command
-  if (command === 'new') {
+  if (command === "new") {
     // Command: new
-    console.log('Current day of week:', day);
-    const startInput = prompt('This class starts from: (eg. 9:00 or 9)', '')!;
-    const duration = prompt('This class lasts for: (hours)', '')!;
+    console.log("Current day of week:", day);
+    const startInput = prompt("This class starts from: (eg. 9:00 or 9)", "")!;
+    const duration = prompt("This class lasts for: (hours)", "")!;
 
-    const start = startInput.includes(':') ? startInput : `${startInput}:00`;
+    const start = startInput.includes(":") ? startInput : `${startInput}:00`;
 
     const time = [start];
 
@@ -63,10 +63,10 @@ while (true) {
 
     const paste = [];
 
-    console.log('You can paste the class info now.');
+    console.log("You can paste the class info now.");
 
     while (paste.length < 4) {
-      const input = prompt('', '')!.trim();
+      const input = prompt("", "")!.trim();
       if (!input) continue;
       else paste.push(input);
     }
@@ -80,15 +80,15 @@ while (true) {
     };
 
     lessons[paste[0]] = lesson;
-  } else if (command === 'show') {
+  } else if (command === "show") {
     // Command: show
     console.table(lessons);
-  } else if (command === 'help') {
+  } else if (command === "help") {
     // Command: help
     console.log(help);
-  } else if (command.startsWith('day ') || command === 'day') {
+  } else if (command.startsWith("day ") || command === "day") {
     // Command: day
-    if (command === 'day') {
+    if (command === "day") {
       console.log('Invalid usage of "day"');
       continue;
     }
@@ -98,26 +98,26 @@ while (true) {
 
     if (1 <= newDayId && newDayId <= 7) {
       day = DAYS[newDayId - 1];
-      console.log('Current day of the week set to', day);
+      console.log("Current day of the week set to", day);
     } else {
-      console.log('Invalid day number, must be between 1 to 7');
+      console.log("Invalid day number, must be between 1 to 7");
     }
-  } else if (command === 'finish') {
+  } else if (command === "finish") {
     // Command: finish
     const calendar = genCalendar(lessons);
 
-    Deno.writeTextFileSync('./timetable.ics', calendar.toString());
-  } else if (command.startsWith('delete ') || command === 'delete') {
+    Deno.writeTextFileSync("./timetable.ics", calendar.toString());
+  } else if (command.startsWith("delete ") || command === "delete") {
     // Command: delete
-    if (command === 'delete') {
+    if (command === "delete") {
       console.log('Invalid usage of "delete"');
       continue;
     }
 
     const title = command.slice(7).trim();
     if (lessons[title]) delete lessons[title];
-    else console.log('Title not found');
+    else console.log("Title not found");
   } else {
-    console.log('Unknown command');
+    console.log("Unknown command");
   }
 }

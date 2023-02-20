@@ -1,11 +1,11 @@
-import { DOMParser, parseTimetable, genCalendar } from './mod.ts';
+import { DOMParser, genCalendar, parseTimetable } from "./mod.ts";
 
 Deno.test({
-  name: 'gen_ics',
+  name: "gen_ics",
   fn() {
     const document = new DOMParser().parseFromString(
-      Deno.readTextFileSync('XJTLU e-Bridge.html').toString(),
-      'text/html'
+      Deno.readTextFileSync("XJTLU e-Bridge.html").toString(),
+      "text/html",
     )!;
 
     const lessons = parseTimetable(document);
@@ -16,6 +16,6 @@ Deno.test({
 
     console.log(calendar.toLines());
 
-    Deno.writeTextFileSync('test.ics', calendar.toString());
+    Deno.writeTextFileSync("test.ics", calendar.toString());
   },
 });
