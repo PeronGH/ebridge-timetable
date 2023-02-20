@@ -1,13 +1,13 @@
-import { HTMLDocument, Day } from './deps.ts';
+import { Day, HTMLDocument } from "./deps.ts";
 
-export const DAYS: Day[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
-
-const customDays: Day[] = [];
+export const DAYS: Day[] = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
 export function parseTimetable(document: HTMLDocument) {
+  const customDays: Day[] = [];
+
   const lessonDict: { [title: string]: Lesson } = {};
 
-  const table = document.querySelector('.maintable')!;
+  const table = document.querySelector(".maintable")!;
   const tbody = table.firstElementChild!;
 
   const rows = tbody.children;
@@ -17,7 +17,7 @@ export function parseTimetable(document: HTMLDocument) {
       // First row (days of the week)
       for (const cell of rows[row_i].children) {
         const day = cell.textContent.trim().slice(0, 2).toUpperCase() as Day;
-        const colSpan = cell.getAttribute('colspan') ?? '1';
+        const colSpan = cell.getAttribute("colspan") ?? "1";
         let i = parseInt(colSpan);
         do {
           customDays.push(day);
@@ -28,7 +28,7 @@ export function parseTimetable(document: HTMLDocument) {
     const row = rows[row_i];
 
     // Time will be set later
-    let time = '';
+    let time = "";
 
     const cells = row.children;
 
@@ -44,7 +44,7 @@ export function parseTimetable(document: HTMLDocument) {
       }
 
       // Handle lesson cells
-      if (cell.className.includes('nonemptycell')) {
+      if (cell.className.includes("nonemptycell")) {
         const details = cell.firstElementChild!.firstElementChild!.children;
 
         const title = details[0].textContent.trim();
